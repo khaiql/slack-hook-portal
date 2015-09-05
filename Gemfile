@@ -27,6 +27,12 @@ gem 'slack-poster'
 
 gem 'slim-rails'
 
+gem 'simple_form'
+
+gem 'foundation-rails'
+
+gem 'friendly_id'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -41,6 +47,10 @@ group :development, :test do
   gem 'byebug'
   gem 'factory_girl_rails'
   gem 'rspec-rails'
+end
+
+group :test do
+  gem 'shoulda-matchers'
 end
 
 group :development do
