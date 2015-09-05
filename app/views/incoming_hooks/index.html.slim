@@ -3,14 +3,16 @@ h1 Listing incoming_hooks
 table
   thead
     tr
-      th
+      th Name
+      th Channel
       th
       th
 
   tbody
     - @incoming_hooks.each do |incoming_hook|
       tr
-        td = link_to 'Show', incoming_hook
+        td = link_to incoming_hook.name, incoming_hook
+        td = incoming_hook.channel
         td = link_to 'Edit', edit_incoming_hook_path(incoming_hook)
         td = link_to 'Destroy', incoming_hook, data: {:confirm => 'Are you sure?'}, :method => :delete
 
