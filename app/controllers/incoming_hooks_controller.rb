@@ -69,6 +69,6 @@ class IncomingHooksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def incoming_hook_params
-      params[:incoming_hook]
+      params.require(:incoming_hook).permit(:name, :webhook_url, :username, :icon_emoji, :icon_url, :channel)
     end
 end

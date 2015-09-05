@@ -1,9 +1,12 @@
-= form_for @incoming_hook do |f|
-  - if @incoming_hook.errors.any?
-    #error_explanation
-      h2 = "#{pluralize(@incoming_hook.errors.count, "error")} prohibited this incoming_hook from being saved:"
-      ul
-        - @incoming_hook.errors.full_messages.each do |message|
-          li = message
-
-  .actions = f.submit
+= simple_form_for @incoming_hook, wrapper: :horizontal_form  do |f|
+  = f.input :name, placeholder: 'Name your incoming hook'
+  = f.input :webhook_url, placeholder: 'Webhook URL'
+  = f.input :username, placeholder: 'Custom name of bot'
+  = f.input :icon_emoji, placeholder: ':monkey_face:'
+  = f.input :icon_url, placeholder: 'url to custom icon'
+  = f.input :channel, placeholder: '#channel'
+  .row
+    .small-5.small-offset-9.columns
+      = f.submit "Save", class: 'button success'
+      | &nbsp;
+      = link_to "Cancel", incoming_hooks_path, class: 'button secondary'

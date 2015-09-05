@@ -19,141 +19,48 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe IncomingHooksController, type: :controller do
-
-  # This should return the minimal set of attributes required to create a valid
-  # IncomingHook. As you add validations to IncomingHook, be sure to
-  # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
-
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
-
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # IncomingHooksController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
-
-  describe "GET #index" do
-    it "assigns all incoming_hooks as @incoming_hooks" do
-      incoming_hook = IncomingHook.create! valid_attributes
-      get :index, {}, valid_session
-      expect(assigns(:incoming_hooks)).to eq([incoming_hook])
+  describe "#index" do
+    let!(:hooks) { create_list(:incoming_hook, 3) }
+    it "assigns list of incoming_hooks" do
+      get :index
+      expect(assigns[:incoming_hooks]).to match_array hooks
     end
   end
 
   describe "GET #show" do
-    it "assigns the requested incoming_hook as @incoming_hook" do
-      incoming_hook = IncomingHook.create! valid_attributes
-      get :show, {:id => incoming_hook.to_param}, valid_session
-      expect(assigns(:incoming_hook)).to eq(incoming_hook)
-    end
-  end
-
-  describe "GET #new" do
-    it "assigns a new incoming_hook as @incoming_hook" do
-      get :new, {}, valid_session
-      expect(assigns(:incoming_hook)).to be_a_new(IncomingHook)
-    end
-  end
-
-  describe "GET #edit" do
-    it "assigns the requested incoming_hook as @incoming_hook" do
-      incoming_hook = IncomingHook.create! valid_attributes
-      get :edit, {:id => incoming_hook.to_param}, valid_session
-      expect(assigns(:incoming_hook)).to eq(incoming_hook)
+    let(:hook) { create(:incoming_hook) }
+    it "assigns incoming_hook" do
+      get :show, id: hook.slug
+      expect(assigns[:incoming_hook]).to eq hook
     end
   end
 
   describe "POST #create" do
-    context "with valid params" do
-      it "creates a new IncomingHook" do
-        expect {
-          post :create, {:incoming_hook => valid_attributes}, valid_session
-        }.to change(IncomingHook, :count).by(1)
+    let(:valid_attributes) { attributes_for(:incoming_hook) }
+    let(:invalid_attributes) { attributes_for(:incoming_hook, name: '') }
+    let(:valid_params) { {incoming_hook: valid_attributes} }
+    let(:invalid_params) { {incoming_hook: invalid_attributes} }
+    context 'valid attributes' do
+      it "creates new incoming_hook" do
+        expect { post :create, valid_params }.to change(IncomingHook, :count).by(1)
       end
 
-      it "assigns a newly created incoming_hook as @incoming_hook" do
-        post :create, {:incoming_hook => valid_attributes}, valid_session
-        expect(assigns(:incoming_hook)).to be_a(IncomingHook)
-        expect(assigns(:incoming_hook)).to be_persisted
-      end
-
-      it "redirects to the created incoming_hook" do
-        post :create, {:incoming_hook => valid_attributes}, valid_session
-        expect(response).to redirect_to(IncomingHook.last)
+      it "redirects to show incoming_hook" do
+        post :create, valid_params
+        hook = IncomingHook.last
+        expect(response).to redirect_to incoming_hook_path(hook)
       end
     end
 
-    context "with invalid params" do
-      it "assigns a newly created but unsaved incoming_hook as @incoming_hook" do
-        post :create, {:incoming_hook => invalid_attributes}, valid_session
-        expect(assigns(:incoming_hook)).to be_a_new(IncomingHook)
+    context "invalid params" do
+      it "does not create incoming_hook" do
+        expect { post :create, invalid_params }.to change(IncomingHook, :count).by(0)
       end
 
-      it "re-renders the 'new' template" do
-        post :create, {:incoming_hook => invalid_attributes}, valid_session
-        expect(response).to render_template("new")
+      it "renders new template" do
+        post :create, invalid_params
+        expect(response).to render_template :new
       end
     end
   end
-
-  describe "PUT #update" do
-    context "with valid params" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
-
-      it "updates the requested incoming_hook" do
-        incoming_hook = IncomingHook.create! valid_attributes
-        put :update, {:id => incoming_hook.to_param, :incoming_hook => new_attributes}, valid_session
-        incoming_hook.reload
-        skip("Add assertions for updated state")
-      end
-
-      it "assigns the requested incoming_hook as @incoming_hook" do
-        incoming_hook = IncomingHook.create! valid_attributes
-        put :update, {:id => incoming_hook.to_param, :incoming_hook => valid_attributes}, valid_session
-        expect(assigns(:incoming_hook)).to eq(incoming_hook)
-      end
-
-      it "redirects to the incoming_hook" do
-        incoming_hook = IncomingHook.create! valid_attributes
-        put :update, {:id => incoming_hook.to_param, :incoming_hook => valid_attributes}, valid_session
-        expect(response).to redirect_to(incoming_hook)
-      end
-    end
-
-    context "with invalid params" do
-      it "assigns the incoming_hook as @incoming_hook" do
-        incoming_hook = IncomingHook.create! valid_attributes
-        put :update, {:id => incoming_hook.to_param, :incoming_hook => invalid_attributes}, valid_session
-        expect(assigns(:incoming_hook)).to eq(incoming_hook)
-      end
-
-      it "re-renders the 'edit' template" do
-        incoming_hook = IncomingHook.create! valid_attributes
-        put :update, {:id => incoming_hook.to_param, :incoming_hook => invalid_attributes}, valid_session
-        expect(response).to render_template("edit")
-      end
-    end
-  end
-
-  describe "DELETE #destroy" do
-    it "destroys the requested incoming_hook" do
-      incoming_hook = IncomingHook.create! valid_attributes
-      expect {
-        delete :destroy, {:id => incoming_hook.to_param}, valid_session
-      }.to change(IncomingHook, :count).by(-1)
-    end
-
-    it "redirects to the incoming_hooks list" do
-      incoming_hook = IncomingHook.create! valid_attributes
-      delete :destroy, {:id => incoming_hook.to_param}, valid_session
-      expect(response).to redirect_to(incoming_hooks_url)
-    end
-  end
-
 end

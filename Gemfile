@@ -47,6 +47,7 @@ group :development, :test do
   gem 'byebug'
   gem 'factory_girl_rails'
   gem 'rspec-rails'
+  gem 'faker'
 end
 
 group :test do
