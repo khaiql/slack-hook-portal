@@ -8,14 +8,19 @@ table.incoming-hooks-table
       th Actions
 
   tbody
-    - @incoming_hooks.each do |incoming_hook|
+    - if @incoming_hooks.present?
+      - @incoming_hooks.each do |incoming_hook|
+        tr
+          td = link_to incoming_hook.name, incoming_hook
+          td = incoming_hook.channel
+          td.actions
+            = link_to 'Edit', edit_incoming_hook_path(incoming_hook), class: 'button success tiny'
+            |&nbsp;
+            = link_to 'Destroy', incoming_hook, data: {:confirm => 'Are you sure?'}, :method => :delete, class: 'button warning tiny'
+    - else
       tr
-        td = link_to incoming_hook.name, incoming_hook
-        td = incoming_hook.channel
-        td.actions
-          = link_to 'Edit', edit_incoming_hook_path(incoming_hook), class: 'button success tiny'
-          |&nbsp;
-          = link_to 'Destroy', incoming_hook, data: {:confirm => 'Are you sure?'}, :method => :delete, class: 'button warning tiny'
+        td colspan='3'
+          | No record
 
 br
 

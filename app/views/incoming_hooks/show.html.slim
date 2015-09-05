@@ -1,4 +1,8 @@
-p#notice = notice
+#test-success-alert.alert-box.info.radius data-alert='true' style="display: none; margin: 10px 0"
+  #message-container
+  a.close href='#' &times;
+
+h1 Incoming Hook
 
 p
   strong Name:&nbsp;
@@ -24,7 +28,12 @@ p
   strong Icon Emoji:&nbsp;
   = @incoming_hook.icon_emoji
 
-= link_to 'Test Webhook', '#', class: 'button success'
+p
+  strong Trigger URL:&nbsp
+  = trigger_incoming_hook_url(@incoming_hook)
+
+a.button.success#test-btn data-url=trigger_incoming_hook_path(@incoming_hook)
+  | Test Webhook
 | &nbsp;
 = link_to 'Edit', edit_incoming_hook_path(@incoming_hook), class: 'button primary'
 | &nbsp;

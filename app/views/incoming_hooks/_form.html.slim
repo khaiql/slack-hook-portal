@@ -1,6 +1,7 @@
 = simple_form_for @incoming_hook, wrapper: :horizontal_form  do |f|
   = f.input :name, placeholder: 'Name your incoming hook'
   = f.input :webhook_url, placeholder: 'Webhook URL'
+  = f.input :message, as: :text, placeholder: 'Default message to push'
   = f.input :username, placeholder: 'Custom name of bot'
   = f.input :icon_emoji, placeholder: ':monkey_face:'
   = f.input :icon_url, placeholder: 'url to custom icon'

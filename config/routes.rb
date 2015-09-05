@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :incoming_hooks
+  resources :incoming_hooks do
+    get :trigger, on: :member
+  end
 
   root 'incoming_hooks#index'
   # The priority is based upon order of creation: first created -> highest priority.

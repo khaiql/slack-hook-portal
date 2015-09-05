@@ -81,4 +81,11 @@ RSpec.describe IncomingHooksController, type: :controller do
       expect { delete :destroy, id: incoming_hook.slug }.to change(IncomingHook, :count).by(-1)
     end
   end
+
+  describe "POST #update" do
+    let!(:incoming_hook) { create(:incoming_hook) }
+    it "updates incoming_hook data" do
+
+    end
+  end
 end

@@ -1,5 +1,5 @@
 class IncomingHooksController < ApplicationController
-  before_action :set_incoming_hook, only: [:show, :edit, :update, :destroy]
+  before_action :set_incoming_hook, only: [:show, :edit, :update, :destroy, :trigger]
 
   # GET /incoming_hooks
   # GET /incoming_hooks.json
@@ -61,6 +61,14 @@ class IncomingHooksController < ApplicationController
     end
   end
 
+  def trigger
+    message = params[:message]
+    response = poster_service.post_message(message)
+    respond_to do |format|
+      format.json { render json: { text: response} }
+    end
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -70,6 +78,10 @@ class IncomingHooksController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def incoming_hook_params
-    params.require(:incoming_hook).permit(:name, :webhook_url, :username, :icon_emoji, :icon_url, :channel)
+    params.require(:incoming_hook).permit(:name, :webhook_url, :username, :icon_emoji, :icon_url, :channel, :message)
+  end
+
+  def poster_service
+    @poster_service ||= ::SlackPosterService.new(@incoming_hook)
   end
 end
