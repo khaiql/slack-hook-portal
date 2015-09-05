@@ -63,4 +63,22 @@ RSpec.describe IncomingHooksController, type: :controller do
       end
     end
   end
+
+  describe "GET #show" do
+    let!(:incoming_hook) { create(:incoming_hook) }
+    before do
+      get :show, {id: incoming_hook.slug}
+    end
+    it "assigns incoming_hook variable" do
+      expect(assigns[:incoming_hook]).to eq incoming_hook
+    end
+  end
+
+  describe "DELETE #destroy" do
+    let!(:incoming_hook) { create(:incoming_hook) }
+
+    it "deletes incoming_hook record" do
+      expect { delete :destroy, id: incoming_hook.slug }.to change(IncomingHook, :count).by(-1)
+    end
+  end
 end

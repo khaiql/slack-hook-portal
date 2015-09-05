@@ -62,13 +62,14 @@ class IncomingHooksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_incoming_hook
-      @incoming_hook = IncomingHook.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def incoming_hook_params
-      params.require(:incoming_hook).permit(:name, :webhook_url, :username, :icon_emoji, :icon_url, :channel)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_incoming_hook
+    @incoming_hook = IncomingHook.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def incoming_hook_params
+    params.require(:incoming_hook).permit(:name, :webhook_url, :username, :icon_emoji, :icon_url, :channel)
+  end
 end

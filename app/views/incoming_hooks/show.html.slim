@@ -1,6 +1,31 @@
 p#notice = notice
 
+p
+  strong Name:&nbsp;
+  = @incoming_hook.name
 
-= link_to 'Edit', edit_incoming_hook_path(@incoming_hook)
-'|
-= link_to 'Back', incoming_hooks_path
+p
+  strong Webhook URL:&nbsp;
+  = @incoming_hook.webhook_url
+
+p
+  strong Channel:&nbsp;
+  = @incoming_hook.channel
+
+p
+  strong Display Name:&nbsp;
+  = @incoming_hook.username
+
+p
+  strong Icon URL:&nbsp;
+  = @incoming_hook.icon_url
+
+p
+  strong Icon Emoji:&nbsp;
+  = @incoming_hook.icon_emoji
+
+= link_to 'Test Webhook', '#', class: 'button success'
+| &nbsp;
+= link_to 'Edit', edit_incoming_hook_path(@incoming_hook), class: 'button primary'
+| &nbsp;
+= link_to 'Back', incoming_hooks_path, class: 'button secondary'

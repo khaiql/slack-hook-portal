@@ -1,21 +1,22 @@
-h1 Listing incoming_hooks
+h1 Listing incoming hooks
 
-table
+table.incoming-hooks-table
   thead
     tr
-      th Name
-      th Channel
-      th
-      th
+      th width='40%' Name
+      th width='20%' Channel
+      th Actions
 
   tbody
     - @incoming_hooks.each do |incoming_hook|
       tr
         td = link_to incoming_hook.name, incoming_hook
         td = incoming_hook.channel
-        td = link_to 'Edit', edit_incoming_hook_path(incoming_hook)
-        td = link_to 'Destroy', incoming_hook, data: {:confirm => 'Are you sure?'}, :method => :delete
+        td.actions
+          = link_to 'Edit', edit_incoming_hook_path(incoming_hook), class: 'button success tiny'
+          |&nbsp;
+          = link_to 'Destroy', incoming_hook, data: {:confirm => 'Are you sure?'}, :method => :delete, class: 'button warning tiny'
 
 br
 
-= link_to 'New Incoming hook', new_incoming_hook_path
+= link_to 'New Incoming hook', new_incoming_hook_path, class: 'button primary'
