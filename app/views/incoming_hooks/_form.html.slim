@@ -1,0 +1,9 @@
+= form_for @incoming_hook do |f|
+  - if @incoming_hook.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@incoming_hook.errors.count, "error")} prohibited this incoming_hook from being saved:"
+      ul
+        - @incoming_hook.errors.full_messages.each do |message|
+          li = message
+
+  .actions = f.submit
