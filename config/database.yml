@@ -79,7 +79,4 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  database: slack-hook-portal_production
-  username: slack-hook-portal
-  password: <%= ENV['SLACK-HOOK-PORTAL_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
