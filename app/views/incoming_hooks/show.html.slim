@@ -28,9 +28,24 @@ p
   strong Icon Emoji:&nbsp;
   = @incoming_hook.icon_emoji
 
+h4 How to use
 p
-  strong Trigger URL:&nbsp
-  = trigger_incoming_hook_url(@incoming_hook)
+  | Trigger the web hook with default settings via a GET call to provided trigger url.
+  br
+  | You can also send custom message using either GET or POST method.
+
+
+h6.subheader Send default message:&nbsp;
+.panel.code
+  = "curl #{trigger_incoming_hook_url(@incoming_hook)}"
+
+h6.subheader Send custom message via GET (message needs to be url encoded):&nbsp;
+.panel.code
+  = "curl #{trigger_incoming_hook_url(@incoming_hook)}?message=hello%20world"
+
+h6.subheader Send custom message via POST with JSON format: &nbsp
+.panel.code
+  = "curl -H \"Content-Type: application/json\" -d '{\"message\": \"hello world\"}' #{trigger_incoming_hook_url(@incoming_hook)}"
 
 a.button.success#test-btn data-url=trigger_incoming_hook_path(@incoming_hook)
   | Test Webhook

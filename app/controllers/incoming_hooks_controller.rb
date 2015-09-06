@@ -1,6 +1,8 @@
 class IncomingHooksController < ApplicationController
   before_action :set_incoming_hook, only: [:show, :edit, :update, :destroy, :trigger]
 
+  protect_from_forgery :except => [:trigger]
+
   # GET /incoming_hooks
   # GET /incoming_hooks.json
   def index

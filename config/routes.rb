@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :incoming_hooks do
     get :trigger, on: :member
+    post :trigger, on: :member
   end
 
   root 'incoming_hooks#index'
