@@ -13,22 +13,20 @@ p
   = @incoming_hook.webhook_url
 
 p
-  strong Channel:&nbsp;
-  = @incoming_hook.channel
+  strong Default Message: &nbsp
+  .panel
+    = simple_format @incoming_hook.message
 
-p
-  strong Display Name:&nbsp;
-  = @incoming_hook.username
+- ['channel', 'username', 'icon_url', 'icon_emoji'].each do |column|
+  - value = @incoming_hook.send column
+  - if value.present?
+    p
+      strong = "#{column.titleize}"
+      |&nbsp;
+      = value
 
-p
-  strong Icon URL:&nbsp;
-  = @incoming_hook.icon_url
-
-p
-  strong Icon Emoji:&nbsp;
-  = @incoming_hook.icon_emoji
-
-h4 How to use
+u
+  h4 How to use
 p
   | Trigger the web hook with default settings via a GET call to provided trigger url.
   br
