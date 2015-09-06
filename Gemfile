@@ -33,6 +33,8 @@ gem 'foundation-rails'
 
 gem 'friendly_id'
 
+gem 'rails_12factor', group: :production
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -54,6 +56,8 @@ group :test do
   gem 'shoulda-matchers'
   gem 'webmock'
 end
+
+
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
